@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background"
+        tools:context=".activities.MainActivity">
+
+    <FrameLayout
+            android:layout_above="@+id/main_activity_bottom_text_view"
+            android:id="@+id/main_activity_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <TextView
+            android:id="@+id/main_activity_bottom_text_view"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textColor="@color/grayText"
+              android:layout_margin="16dp"
+              android:layout_centerHorizontal="true"
+              android:layout_alignParentBottom="true"
+              android:text="BreakTheIce \u00A9 2019"/>
+</RelativeLayout>
