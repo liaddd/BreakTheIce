@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:context=".activities.SplashActivity"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
         android:background="@color/splashBackground"
-        tools:context=".activities.SplashActivity">
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
 
-
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:gravity="center"
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:text="@string/break_the_ice"
               android:textSize="48sp"
               android:fontFamily="@font/pacifico"/>
 
-
     <TextView
+            android:layout_marginTop="@dimen/margin_16dp"
             android:id="@+id/splash_activity_loading_text_view"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="@string/loading"
-              android:textSize="16sp"
-              android:fontFamily="@font/pacifico"/>
+            android:text="@string/loading"
+            android:textSize="16sp"
+            android:fontFamily="@font/pacifico"/>
+
+    <ProgressBar
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:id="@+id/splash_activity_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    />
+
 </LinearLayout>

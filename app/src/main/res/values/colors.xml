@@ -6,4 +6,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="grayText">#AFAFAF</color>
     <color name="splashBackground">#5BB4FF</color>
+    <color name="nextButton">#FACA56</color>
+    <color name="questionItemBackground">#7FD5C8</color>
 </resources>

@@ -3,6 +3,10 @@
     <string name="break_the_ice">Break The Ice</string>
     <string name="loading">Loading…</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipscing elit?</string>
+    <string name="choose_category">Choose Category from below</string>
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
+    <string name="next">Next</string>
 
 
 </resources>
