@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breaktheice.R
+import com.example.breaktheice.extensions.inflate
 import com.example.breaktheice.models.Question
-import com.example.breaktheice.utils.inflate
 
 class QuestionAdapter(private val questions: List<Question>) : RecyclerView.Adapter<QuestionAdapter.MyViewHolder>() {
 

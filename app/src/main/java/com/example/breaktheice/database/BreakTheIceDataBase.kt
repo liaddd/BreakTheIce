@@ -4,11 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.breaktheice.models.Category
 import com.example.breaktheice.models.Difficulty
 import com.example.breaktheice.models.Question
 
-@Database(entities = [Category::class, Difficulty::class, Question::class], version = 1)
+
+@TypeConverters(Converters::class)
+@Database(entities = [Category::class, Difficulty::class, Question::class], version = 1, exportSchema = false)
 abstract class BreakTheIceDataBase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao

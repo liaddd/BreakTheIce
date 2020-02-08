@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -14,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.breaktheice.R
 import com.example.breaktheice.adapters.QuestionAdapter
-import com.example.breaktheice.models.Category
 import com.example.breaktheice.models.Question
-import com.example.breaktheice.utils.Constants
 import com.example.breaktheice.viewmodels.QuestionViewModel
 import kotlinx.android.synthetic.main.fragment_questions.*
 
@@ -42,13 +39,11 @@ class QuestionsFragment : Fragment() {
         val bundle = arguments
         if (bundle != null) {
             // todo Liad - get Category by difficulties and categories Arrays question using ViewModel
-            val category = bundle.getParcelable<Category>(Constants.CATEGORY)!!
-            val categoryId = category.id
-            val difficultyId = category.difficulties.first().id
+            //val difficultyId = category.difficulties.first().id
             questionViewModel = ViewModelProviders.of(this).get(QuestionViewModel::class.java)
-            questionViewModel.getQuestions(categoryId , difficultyId).observe(this, Observer {
+            /*questionViewModel.getQuestions(categoryId , difficultyId).observe(this, Observer {
 
-            })
+            })*/
         }
         initRecyclerView()
         setListeners()
@@ -66,7 +61,7 @@ class QuestionsFragment : Fragment() {
 
         if (questions.isNullOrEmpty()) {
             repeat(10) {
-                questions.add(Question(it.inc().toString(), "Question no ${it + 1}", (it + 1), (it + 1), null, null))
+                questions.add(Question(it.inc().toString(), "Question no ${it + 1}", (it + 1), (it + 1)))
             }
         }
         recyclerView = fragment_questions_recycler_view

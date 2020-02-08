@@ -7,21 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breaktheice.R
 import com.example.breaktheice.adapters.CategoryAdapter
-import com.example.breaktheice.di.viewmodel_factory_di.DaggerIMyFactoryComponent
+import com.example.breaktheice.extensions.changeFragment
+import com.example.breaktheice.extensions.toast
 import com.example.breaktheice.models.Category
-import com.example.breaktheice.utils.Constants
-import com.example.breaktheice.utils.Toast
-import com.example.breaktheice.utils.changeFragment
 import com.example.breaktheice.viewmodels.SplashActivityViewModel
 import kotlinx.android.synthetic.main.fragment_categories.*
+import org.koin.android.ext.android.inject
 import java.util.*
-import javax.inject.Inject
 
 class CategoriesFragment : Fragment() {
 
@@ -30,12 +26,9 @@ class CategoriesFragment : Fragment() {
     private var categoryList = ArrayList<Category>()
     private lateinit var categoryAdapter: CategoryAdapter
 
-    @Inject
-    lateinit var factory : ViewModelProvider.Factory
-    lateinit var viewModel: SplashActivityViewModel
+    private val viewModel: SplashActivityViewModel by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        DaggerIMyFactoryComponent.create().inject(this)
         setObservable()
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
@@ -47,13 +40,13 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun setObservable() {
-        viewModel = ViewModelProviders.of(this , factory).get(SplashActivityViewModel::class.java)
+
         viewModel.getCategoriesLiveData().observe(this, Observer {
             Log.d("Liad", "in getCategoriesLiveData observe DATA: $it")
             if (!it.isNullOrEmpty()) {
                 categoryAdapter.setCategories(it as ArrayList<Category>)
             } else {
-                Toast(context, "Sorry no Data to show O_o", 2000)
+                toast(context, "Sorry no Data to show O_o")
             }
         })
     }
@@ -63,10 +56,13 @@ class CategoriesFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context, SPAN_COUNT, RecyclerView.VERTICAL, false)
         categoryAdapter = CategoryAdapter(categoryList)
         recyclerView.adapter = categoryAdapter
-        categoryAdapter.onItemClick = { category ->
-            val bundle = Bundle()
-            bundle.putParcelable(Constants.CATEGORY, category)
-            changeFragment(activity!!.supportFragmentManager, QuestionsFragment.newInstance(), bundle, true)
+        categoryAdapter.onItemClick = {
+            changeFragment(
+                activity!!.supportFragmentManager,
+                QuestionsFragment.newInstance(),
+                null,
+                true
+            )
         }
 
     }

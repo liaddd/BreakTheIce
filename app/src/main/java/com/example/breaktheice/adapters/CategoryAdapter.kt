@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breaktheice.R
+import com.example.breaktheice.extensions.inflate
 import com.example.breaktheice.models.Category
-import com.example.breaktheice.utils.inflate
 
 class CategoryAdapter(private var categories: ArrayList<Category>) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {

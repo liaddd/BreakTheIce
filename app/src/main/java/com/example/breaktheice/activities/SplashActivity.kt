@@ -5,37 +5,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import co.climacell.statefulLiveData.core.StatefulData
 import com.example.breaktheice.R
-import com.example.breaktheice.di.viewmodel_factory_di.DaggerIMyFactoryComponent
-import com.example.breaktheice.di.viewmodel_factory_di.ViewModelFactory
+import com.example.breaktheice.extensions.toast
 import com.example.breaktheice.viewmodels.SplashActivityViewModel
 import kotlinx.android.synthetic.main.activity_splash.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
-    lateinit var viewModel: SplashActivityViewModel
+
+    private val viewModel: SplashActivityViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        DaggerIMyFactoryComponent.create().inject(this)
         setObservables()
     }
 
     private fun setObservables() {
-        viewModel = ViewModelProviders.of(this , factory).get(SplashActivityViewModel::class.java)
-        viewModel.loadCategories()
-        viewModel.getIsLoading().observe(this, Observer {
-            if (it) {
-                splash_activity_progress_bar.visibility = View.VISIBLE
-            } else {
-                splash_activity_progress_bar.visibility = View.GONE
-                continueFlow()
+        viewModel.loadCategories().observe(this , Observer {
+            when (it) {
+                is StatefulData.Success -> continueFlow()
+                is StatefulData.Loading -> splash_activity_progress_bar.visibility = View.VISIBLE
+                is StatefulData.Error -> toast(this , it.throwable.localizedMessage)
             }
         })
     }

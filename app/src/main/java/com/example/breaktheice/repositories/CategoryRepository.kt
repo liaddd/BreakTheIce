@@ -1,50 +1,44 @@
 package com.example.breaktheice.repositories
 
+import android.os.Handler
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.breaktheice.MyApplication
+import co.climacell.statefulLiveData.core.MutableStatefulLiveData
+import co.climacell.statefulLiveData.core.StatefulLiveData
+import co.climacell.statefulLiveData.core.putData
+import com.example.breaktheice.database.BreakTheIceDataBase
+import com.example.breaktheice.database.CategoryDao
 import com.example.breaktheice.models.Category
-import com.example.breaktheice.server_connection.CategoriesApi
-import com.example.breaktheice.server_connection.CategoryResponse
-import com.example.breaktheice.services.ServiceBuilder
-import com.example.breaktheice.utils.Toast
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import javax.inject.Inject
+import com.example.breaktheice.server_connection.ApiRequest
+import retrofit2.Retrofit
 
 
-class CategoryRepository @Inject constructor() {
+class CategoryRepository (breakTheIceDataBase: BreakTheIceDataBase , retrofit: Retrofit) {
 
     // todo Liad - fetch categories from Database if needed - add in production
-    //private var categoryDao: CategoryDao
-    private val loading = MutableLiveData<Boolean>()
+
     val categories = MutableLiveData<List<Category>>()
-    private var categoryService: CategoriesApi = ServiceBuilder.buildService(CategoriesApi::class.java)
 
-    /*init {
-        val breakTheIceDataBase: BreakTheIceDataBase = BreakTheIceDataBase.getDatabase(MyApplication.instance)
-        categoryDao = breakTheIceDataBase.categoryDao()
-        categories.postValue(categoryDao.getAllCategories().value)
-        if (categories.value.isNullOrEmpty()) {
-            getCategoriesLiveData()
-        }
-    }*/
+    private val categoryDao: CategoryDao
+    private val apiRequest: ApiRequest
 
-    init{
+    init {
         Log.d("Repository initialized" , "object in memory : $this" )
+        categoryDao = breakTheIceDataBase.categoryDao()
+        apiRequest = retrofit.create(ApiRequest::class.java)
     }
 
-    fun fetchCategories() {
-        loading.postValue(true)
-        val requestCategories = categoryService.getCategories()
-        requestCategories.enqueue(object : Callback<CategoryResponse> {
+    fun fetchCategories() : StatefulLiveData<List<Category>> {
+        /*requestCategories.enqueue(object : Callback<CategoryResponse> {
 
             override fun onResponse(call: Call<CategoryResponse>, response: Response<CategoryResponse>) {
                 if (response.isSuccessful) updateCategoriesToLiveData(response.body()?.getResults())
                 else {
-                    Toast(MyApplication.instance.applicationContext, response.message(), 2000)
+                    toast(
+                        MyApplication.instance.applicationContext,
+                        response.message(),
+                        2000
+                    )
                 }
                 loading.postValue(false)
             }
@@ -53,7 +47,12 @@ class CategoryRepository @Inject constructor() {
                 updateErrorCategoriesToLiveData()
                 loading.postValue(false)
             }
-        })
+        })*/
+        val data = MutableStatefulLiveData<List<Category>>()
+        Handler().postDelayed({
+            data.putData(emptyList())
+        } , 2000)
+        return data
     }
 
     private fun updateCategoriesToLiveData(categoriesFetched: List<Category>?) {
@@ -63,10 +62,5 @@ class CategoryRepository @Inject constructor() {
     private fun updateErrorCategoriesToLiveData() {
         categories.postValue(null)
     }
-
-    fun getIsLoading(): LiveData<Boolean> {
-        return loading
-    }
-
 
 }

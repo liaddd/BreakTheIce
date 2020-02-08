@@ -1,18 +1,17 @@
 package com.example.breaktheice
 
 import android.app.Application
-import com.example.breaktheice.di.app_di.AppModule
-import com.example.breaktheice.di.app_di.DaggerIMyApplicationComponent
-import com.example.breaktheice.di.app_di.IMyApplicationComponent
-import javax.inject.Singleton
+import com.example.breaktheice.di.appModule
+import org.koin.core.context.startKoin
 
-@Singleton
 class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        initDagger(this)
+        startKoin {
+            modules(listOf(appModule))
+        }
     }
 
     companion object {
@@ -20,7 +19,4 @@ class MyApplication : Application() {
             private set
     }
 
-    private fun initDagger(myApplication: MyApplication): IMyApplicationComponent {
-        return DaggerIMyApplicationComponent.builder().appModule(AppModule(myApplication)).build()
-    }
 }
