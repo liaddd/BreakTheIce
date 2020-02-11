@@ -7,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import co.climacell.statefulLiveData.core.StatefulData
 import com.example.breaktheice.R
-import com.example.breaktheice.extensions.toast
-import com.example.breaktheice.viewmodels.SplashActivityViewModel
+import com.example.breaktheice.utils.extensions.toast
+import com.example.breaktheice.viewmodels.CategoriesViewModel
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
 
-    private val viewModel: SplashActivityViewModel by inject()
+    private val viewModel: CategoriesViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObservables() {
-        viewModel.loadCategories().observe(this , Observer {
+        viewModel.getCategories().observe(this , Observer {
             when (it) {
                 is StatefulData.Success -> continueFlow()
                 is StatefulData.Loading -> splash_activity_progress_bar.visibility = View.VISIBLE

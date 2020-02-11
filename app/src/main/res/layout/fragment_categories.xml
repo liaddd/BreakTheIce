@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
         tools:context=".fragments.CategoriesFragment">
 
     <TextView
+            android:id="@+id/categories_fragment_title"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_24dp"
             android:textSize="@dimen/text_size_24sp"
             android:textColor="@android:color/black"
@@ -19,12 +19,21 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="@dimen/margin_16dp"
-            android:id="@+id/start_fragment_recycler_view"
+            android:layout_below="@+id/categories_fragment_title"
+            app:spanCount="2"
+            android:id="@+id/categories_fragment_recycler_view"
             android:layout_width="match_parent"
             tools:listitem="@layout/category_list_item"
             android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+
+    <ProgressBar
+            android:id="@+id/categories_fragment_progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/size_100dp"/>
     <!--<androidx.cardview.widget.CardView
             android:id="@+id/start_fragment_category_card_view"
             android:layout_marginStart="16dp"
@@ -83,4 +92,4 @@
     />-->
 
 
-</LinearLayout>
+</RelativeLayout>

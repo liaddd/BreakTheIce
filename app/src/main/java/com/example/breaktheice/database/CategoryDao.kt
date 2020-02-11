@@ -8,10 +8,10 @@ import com.example.breaktheice.models.Category
 interface CategoryDao {
 
     @Insert
-    fun insert(category: Category)
+    fun insert(category: Category) : Long
 
     @Insert
-    fun insertAll(categories: List<Category>)
+    fun insertAll(categories: List<Category>) : List<Long>
 
     @Delete
     fun delete(category: Category)

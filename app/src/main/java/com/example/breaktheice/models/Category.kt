@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "categories")
 data class Category(
-    @PrimaryKey @SerializedName("_id") val id: String, val key: String
+    @PrimaryKey @SerializedName("_id") val id: String, val key: String, val difficulties: List<Difficulty>
 )

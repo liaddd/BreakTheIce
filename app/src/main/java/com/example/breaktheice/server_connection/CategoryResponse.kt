@@ -6,10 +6,8 @@ import com.google.gson.annotations.SerializedName
 class CategoryResponse {
 
     @SerializedName("categories")
-    private var results: List<Category> = listOf()
+    private var categories: List<Category> = listOf()
 
-    fun getResults(): List<Category> {
-        return results
-    }
+    fun getCategories(): List<Category> = categories
 
 }

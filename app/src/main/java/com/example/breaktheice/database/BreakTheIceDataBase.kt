@@ -10,8 +10,8 @@ import com.example.breaktheice.models.Difficulty
 import com.example.breaktheice.models.Question
 
 
-@TypeConverters(Converters::class)
 @Database(entities = [Category::class, Difficulty::class, Question::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class BreakTheIceDataBase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao
@@ -31,7 +31,8 @@ abstract class BreakTheIceDataBase : RoomDatabase() {
                     context.applicationContext,
                     BreakTheIceDataBase::class.java,
                     "breakTheIce.db"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
             }
         }
 

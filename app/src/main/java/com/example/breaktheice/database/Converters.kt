@@ -7,10 +7,10 @@ import com.google.gson.reflect.TypeToken
 
 class Converters {
 
-    // difficulty converter
+    // Difficulty converter
     @TypeConverter
-    fun stringToDifficulty(data: String?): List<Difficulty> = Gson().fromJson(data, object: TypeToken<List<Difficulty>>(){}.type)
+    fun stringToDifficulty(data: String?): List<Difficulty> = Gson().fromJson(data, object : TypeToken<List<Difficulty>>() {}.type)
 
     @TypeConverter
-    fun difficultyToString(difficulty: Difficulty): String = Gson().toJson(difficulty)
+    fun difficultiesToString(difficulties: List<Difficulty>): String = Gson().toJson(difficulties)
 }

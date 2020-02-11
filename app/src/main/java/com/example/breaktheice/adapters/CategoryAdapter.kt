@@ -6,13 +6,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.breaktheice.R
-import com.example.breaktheice.extensions.inflate
 import com.example.breaktheice.models.Category
+import com.example.breaktheice.utils.extensions.inflate
 
-class CategoryAdapter(private var categories: ArrayList<Category>) :
-    RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    var onItemClick: ((Category) -> Unit)? = null
+
+    private var categories: List<Category> = emptyList()
+    var listener: ICategoryOnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.category_list_item))
@@ -23,26 +24,23 @@ class CategoryAdapter(private var categories: ArrayList<Category>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val category = categories[position]
 
-        val categoryObj = categories[position]
-
-        holder.categoryTitle.text = categoryObj.key
+        holder.categoryTitle.text = category.key
+        holder.itemView.setOnClickListener { listener?.onCategoryClick(category) }
     }
 
-    fun setCategories(categoryList: ArrayList<Category>) {
+    fun setCategories(categoryList: List<Category>) {
         categories = categoryList
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var categoryImage: ImageView = itemView.findViewById(R.id.category_list_item_image_view)
         var categoryTitle: TextView = itemView.findViewById(R.id.category_list_item_text_view)
+    }
 
-        init {
-            itemView.setOnClickListener {
-                onItemClick?.invoke(categories[adapterPosition])
-            }
-        }
+    interface ICategoryOnClickListener {
+        fun onCategoryClick(category: Category)
     }
 }
