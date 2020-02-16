@@ -3,7 +3,6 @@ package com.example.breaktheice.fragments
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +37,9 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
 
     // todo Liad - Remove -> ONLY for testing
     private var questions: MutableList<Question> = mutableListOf()
-    private var position: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_questions, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.fragment_questions, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,9 +76,7 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
         fragment_questions_dislike_image_view.setOnClickListener(this)
 
         fragment_questions_next_button.setOnClickListener {
-            if (position < 9) ++position
-            else position = 0
-            recyclerView.smoothScrollToPosition(position)
+            moveToNextItem()
         }
     }
 
@@ -87,6 +84,14 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
         questionViewModel.getQuestions("", "").observe(viewLifecycleOwner, Observer {
             //TODO("not implemented")
         })
+    }
+
+    private fun moveToNextItem() {
+        var currentPosition =
+            (recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+        if (currentPosition < 9) ++currentPosition
+        else currentPosition = 0
+        recyclerView.smoothScrollToPosition(currentPosition)
     }
 
     override fun onClick(v: View?) {
@@ -100,33 +105,33 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    // todo Liad - Get current position
     private fun onLikeClicked() {
 
-        val currentPosition = recyclerView.getChildAdapterPosition(recyclerView.focusedChild)
-        Log.d("Liad" , currentPosition.toString())
-        recyclerView.getChildAt(currentPosition)?.let {
-            YoYo.with(Techniques.Tada)
+        val currentPosition =
+            (recyclerView.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition()
+        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(currentPosition ?: 0)
+        currentView?.let {
+            YoYo.with(Techniques.Landing)
                 .duration(1000)
-                .playOn(recyclerView.getChildAt(currentPosition))
+                .playOn(currentView)
         }
         Handler().postDelayed({
-            recyclerView.smoothScrollToPosition(currentPosition + 1)
-        } , 800)
+            moveToNextItem()
+        }, 500)
     }
 
     private fun onDislikeClicked() {
-
-        val currentPosition = recyclerView.getChildAdapterPosition(recyclerView.focusedChild)
-        Log.d("Liad" , currentPosition.toString())
-        recyclerView.getChildAt(currentPosition)?.let {
-            YoYo.with(Techniques.Wave)
+        val currentPosition =
+            (recyclerView.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition()
+        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(currentPosition ?: 0)
+        currentView?.let {
+            YoYo.with(Techniques.Wobble)
                 .duration(1000)
-                .playOn(recyclerView.getChildAt(currentPosition))
+                .playOn(currentView)
         }
         Handler().postDelayed({
-            recyclerView.smoothScrollToPosition(currentPosition + 1)
-        } , 800)
+            moveToNextItem()
+        }, 500)
     }
 
 }
