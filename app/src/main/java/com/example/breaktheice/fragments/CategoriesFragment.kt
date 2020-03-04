@@ -34,7 +34,11 @@ class CategoriesFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private val viewModel: CategoriesViewModel by inject()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
         inflater.inflate(R.layout.fragment_categories, container, false)
 
 
@@ -53,12 +57,9 @@ class CategoriesFragment : Fragment() {
                     progressBar.visibility = View.GONE
                     categoryAdapter.setCategories(it.data)
                 }
-                is StatefulData.Loading -> {
-                    progressBar.visibility = View.VISIBLE
-                }
-                is StatefulData.Error -> {
-                    progressBar.visibility = View.VISIBLE
-                }
+                is StatefulData.Loading -> progressBar.visibility = View.VISIBLE
+                is StatefulData.Error -> progressBar.visibility = View.VISIBLE
+
             }
         })
     }
@@ -78,9 +79,8 @@ class CategoriesFragment : Fragment() {
                 activity?.let {
                     changeFragment(
                         it.supportFragmentManager,
-                        QuestionsFragment.newInstance(),
-                        null,
-                        true
+                        DifficultyFragment.newInstance(),
+                        addToStack = true
                     )
                 }
             }

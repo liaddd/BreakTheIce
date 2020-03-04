@@ -63,7 +63,6 @@ class CategoryRepository(breakTheIceDataBase: BreakTheIceDataBase, retrofit: Ret
 
     private fun getCategoriesFromApi() = apiRequest.getCategories()
 
-
     fun getQuestions(): LiveData<List<Question>> {
         // todo ("not implemented")
         val questions = MutableLiveData<List<Question>>()

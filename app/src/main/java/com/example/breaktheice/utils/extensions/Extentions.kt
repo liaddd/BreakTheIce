@@ -19,7 +19,7 @@ fun toast(context: Context?, message: String) {
     android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_SHORT).show()
 }
 
-fun changeFragment(fragmentManager: FragmentManager, fragment: Fragment, bundle: Bundle?, addToStack: Boolean) {
+fun changeFragment(fragmentManager: FragmentManager, fragment: Fragment, bundle: Bundle? = null, addToStack: Boolean = false) {
     val fragmentTransaction = fragmentManager.beginTransaction()
     if (addToStack) {
         fragmentTransaction.addToBackStack(null)
