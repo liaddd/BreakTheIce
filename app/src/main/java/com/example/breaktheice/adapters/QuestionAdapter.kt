@@ -32,7 +32,7 @@ class QuestionAdapter : RecyclerView.Adapter<QuestionAdapter.MyViewHolder>() {
         return questions.size
     }
 
-    fun setQuestions(questions : List<Question>) {
+    fun setQuestions(questions: List<Question>) {
         this.questions.clearAndAddAll(questions)
         notifyDataSetChanged()
     }

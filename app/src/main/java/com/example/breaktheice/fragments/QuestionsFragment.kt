@@ -38,7 +38,11 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
     // todo Liad - Remove -> ONLY for testing
     private var questions: MutableList<Question> = mutableListOf()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
         inflater.inflate(R.layout.fragment_questions, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +59,14 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
         // todo Liad - replace with real list from Observation
         if (questions.isNullOrEmpty()) {
             repeat(10) {
-                questions.add(Question(it.inc().toString(), "Question no ${it + 1}", (it + 1), (it + 1)))
+                questions.add(
+                    Question(
+                        it.inc().toString(),
+                        "Question no ${it + 1}",
+                        (it + 1),
+                        (it + 1)
+                    )
+                )
             }
         }
         questionAdapter.setQuestions(questions)
@@ -109,7 +120,9 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
 
         val currentPosition =
             (recyclerView.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition()
-        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(currentPosition ?: 0)
+        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(
+            currentPosition ?: 0
+        )
         currentView?.let {
             YoYo.with(Techniques.Landing)
                 .duration(1000)
@@ -123,7 +136,9 @@ class QuestionsFragment : Fragment(), View.OnClickListener {
     private fun onDislikeClicked() {
         val currentPosition =
             (recyclerView.layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition()
-        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(currentPosition ?: 0)
+        val currentView = (recyclerView.layoutManager as LinearLayoutManager).findViewByPosition(
+            currentPosition ?: 0
+        )
         currentView?.let {
             YoYo.with(Techniques.Wobble)
                 .duration(1000)

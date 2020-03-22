@@ -9,7 +9,8 @@ class Converters {
 
     // Difficulty converter
     @TypeConverter
-    fun stringToDifficulty(data: String?): List<Difficulty> = Gson().fromJson(data, object : TypeToken<List<Difficulty>>() {}.type)
+    fun stringToDifficulty(data: String?): List<Difficulty> =
+        Gson().fromJson(data, object : TypeToken<List<Difficulty>>() {}.type)
 
     @TypeConverter
     fun difficultiesToString(difficulties: List<Difficulty>): String = Gson().toJson(difficulties)

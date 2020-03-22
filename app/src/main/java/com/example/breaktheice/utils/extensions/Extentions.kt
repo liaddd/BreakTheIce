@@ -19,7 +19,12 @@ fun toast(context: Context?, message: String) {
     android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_SHORT).show()
 }
 
-fun changeFragment(fragmentManager: FragmentManager, fragment: Fragment, bundle: Bundle? = null, addToStack: Boolean = false) {
+fun changeFragment(
+    fragmentManager: FragmentManager,
+    fragment: Fragment,
+    bundle: Bundle? = null,
+    addToStack: Boolean = false
+) {
     val fragmentTransaction = fragmentManager.beginTransaction()
     if (addToStack) {
         fragmentTransaction.addToBackStack(null)
@@ -30,7 +35,7 @@ fun changeFragment(fragmentManager: FragmentManager, fragment: Fragment, bundle:
     fragmentTransaction.commit()
 }
 
-fun <T> MutableList<T>.clearAndAddAll(newData : List<T>){
+fun <T> MutableList<T>.clearAndAddAll(newData: List<T>) {
     clear()
     addAll(newData)
 }

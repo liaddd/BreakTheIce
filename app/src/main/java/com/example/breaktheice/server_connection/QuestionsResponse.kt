@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
 class QuestionsResponse {
 
     @SerializedName("")
-    private lateinit var results : List<Question>
+    private lateinit var results: List<Question>
 
-    fun getResults() : List<Question>{
+    fun getResults(): List<Question> {
         return results
     }
 }

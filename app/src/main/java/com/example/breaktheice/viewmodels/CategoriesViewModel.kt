@@ -7,5 +7,5 @@ import com.example.breaktheice.repositories.CategoryRepository
 
 class CategoriesViewModel(private val categoryRepository: CategoryRepository) : ViewModel() {
 
-    fun getCategories() : StatefulLiveData<List<Category>> = categoryRepository.categories
+    fun getCategories(): StatefulLiveData<List<Category>> = categoryRepository.categories
 }

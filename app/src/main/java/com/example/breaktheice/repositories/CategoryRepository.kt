@@ -16,11 +16,11 @@ import java.util.concurrent.Executors
 
 class CategoryRepository(breakTheIceDataBase: BreakTheIceDataBase, retrofit: Retrofit) {
 
-    val categories : StatefulLiveData<List<Category>>
+    val categories: StatefulLiveData<List<Category>>
 
     private val dao: CategoryDao
     private val apiRequest: ApiRequest
-    private val executor  = Executors.newSingleThreadExecutor()
+    private val executor = Executors.newSingleThreadExecutor()
 
     init {
         Log.d("Repository initialized", "object in memory : $this")
@@ -40,7 +40,7 @@ class CategoryRepository(breakTheIceDataBase: BreakTheIceDataBase, retrofit: Ret
                 getCategoriesFromApi().observeOnce(Observer { apiCategories ->
                     if (apiCategories is StatefulData.Success) {
                         val categoriesFetched = apiCategories.data.getCategories()
-                        Log.d("Liad" , categoriesFetched.toString())
+                        Log.d("Liad", categoriesFetched.toString())
                         categories.putData(categoriesFetched)
                         saveCategoriesInDatabase(categoriesFetched)
                     }
@@ -53,9 +53,9 @@ class CategoryRepository(breakTheIceDataBase: BreakTheIceDataBase, retrofit: Ret
     }
 
     private fun saveCategoriesInDatabase(categories: List<Category>) {
-        executor.submit{
+        executor.submit {
             val value = dao.insertAll(categories)
-            Log.d("Liad" , "value: $value")
+            Log.d("Liad", "value: $value")
         }
     }
 

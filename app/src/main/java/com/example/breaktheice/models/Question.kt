@@ -10,7 +10,7 @@ data class Question(
     val question: String,
     @SerializedName("no_of_likes") val numOfLikes: Int,
     @SerializedName("no_of_dislikes") val numOfDislikes: Int
-){
+) {
 
-    constructor() : this("" , "" , 1 , 2)
+    constructor() : this("", "", 1, 2)
 }

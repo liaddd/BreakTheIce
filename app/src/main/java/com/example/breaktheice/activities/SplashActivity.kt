@@ -25,11 +25,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObservables() {
-        viewModel.getCategories().observe(this , Observer {
+        viewModel.getCategories().observe(this, Observer {
             when (it) {
                 is StatefulData.Success -> continueFlow()
                 is StatefulData.Loading -> splash_activity_progress_bar.visibility = View.VISIBLE
-                is StatefulData.Error -> toast(this , it.throwable.localizedMessage)
+                is StatefulData.Error -> toast(this, it.throwable.localizedMessage)
             }
         })
     }

@@ -10,7 +10,11 @@ import com.example.breaktheice.models.Difficulty
 import com.example.breaktheice.models.Question
 
 
-@Database(entities = [Category::class, Difficulty::class, Question::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Category::class, Difficulty::class, Question::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class BreakTheIceDataBase : RoomDatabase() {
 
@@ -28,10 +32,10 @@ abstract class BreakTheIceDataBase : RoomDatabase() {
             }
             synchronized(this) {
                 return Room.databaseBuilder(
-                    context.applicationContext,
-                    BreakTheIceDataBase::class.java,
-                    "breakTheIce.db"
-                ).fallbackToDestructiveMigration()
+                        context.applicationContext,
+                        BreakTheIceDataBase::class.java,
+                        "breakTheIce.db"
+                    ).fallbackToDestructiveMigration()
                     .build()
             }
         }
